@@ -321,10 +321,13 @@
     margin-bottom: 20px;
   }
   .stat-card {
-    padding: 20px 18px;
+    padding: 14px 15px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */
+    text-align: center;
   }
   .section.tint .stat-card { background: var(--bg); }
   .stat-value {
@@ -334,6 +337,10 @@
     font-size: 1.5rem;
     color: var(--ink);
     margin-bottom: 4px;
+  }
+  .card-btn{
+    color: #909488;            /* Dark gray text */
+    font-size: 11px;
   }
   .stat-label { font-size: 0.85rem; color: var(--ink-soft); }
   .fine-print { font-size: 0.86rem; color: var(--ink-soft); }
