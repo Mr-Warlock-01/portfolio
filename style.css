@@ -31,6 +31,25 @@
     --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
 
+  /* ---------- Tokens: dark (toggled via data-theme, see script.js) ---------- */
+  :root[data-theme="dark"] {
+    --bg: #0C111C;
+    --surface: #141B2B;
+    --surface-2: #1C2436;
+    --ink: #E9EDF3;
+    --ink-soft: #9AA5BA;
+    --border: #2A3348;
+    --accent: #2FC4CD;
+    --accent-strong: #33C9D2;
+    --accent-strong-hover: #52D4DB;
+    --accent-text: #57D6DD;
+    --accent-soft: rgba(47, 196, 205, 0.14);
+    --gold: #E3A94C;
+    --gold-soft: rgba(227, 169, 76, 0.16);
+    --shadow-nav: 0 1px 0 rgba(0,0,0,0.3), 0 10px 24px -18px rgba(0,0,0,0.6);
+    --shadow-hero: 0 20px 60px -28px rgba(0,0,0,0.6);
+  }
+
   body {
     background: var(--bg);
     color: var(--ink);
@@ -38,6 +57,7 @@
     font-size: 16px;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
+    transition: background-color .2s ease, color .2s ease;
   }
 
   .wrap {
@@ -63,12 +83,12 @@
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow-nav);
+    transition: background-color .2s ease, border-color .2s ease;
   }
   .nav-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 24px;
+    gap: 16px;
     padding-top: 14px;
     padding-bottom: 14px;
   }
@@ -85,6 +105,7 @@
     gap: 4px;
     overflow-x: auto;
     scrollbar-width: none;
+    margin-left: auto;
   }
   .main-nav::-webkit-scrollbar { display: none; }
   .main-nav a {
@@ -103,6 +124,26 @@
   .main-nav a:hover { color: var(--ink); background: var(--surface-2); }
   .main-nav a.active { color: var(--accent-text); background: var(--accent-soft); }
   .main-nav .icon { width: 17px; height: 17px; flex: none; }
+
+  /* ---------- Theme toggle ---------- */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink-soft);
+    flex: none;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .theme-toggle:hover { color: var(--accent-text); border-color: var(--accent-strong); }
+  .theme-toggle .icon { width: 18px; height: 18px; }
+  .theme-toggle .icon-sun { display: none; }
+  :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+  :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
   /* ---------- Icon defaults ---------- */
   .icon { stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }

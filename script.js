@@ -57,3 +57,24 @@
       });
     } catch (err) { /* no-op */ }
   })();
+
+  // Dark / light theme toggle
+  (function () {
+    var root = document.documentElement;
+    var toggle = document.getElementById('themeToggle');
+    if (!toggle) return;
+
+    function updateLabel() {
+      var isDark = root.getAttribute('data-theme') === 'dark';
+      toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+    updateLabel();
+
+    toggle.addEventListener('click', function () {
+      var isDark = root.getAttribute('data-theme') === 'dark';
+      var next = isDark ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (err) {}
+      updateLabel();
+    });
+  })();
