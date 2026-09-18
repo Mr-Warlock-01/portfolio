@@ -7,7 +7,7 @@
 <meta name="description" content="Portfolio of Shamin Yasser">
 <script>
   (function () {
-    var theme = 'dark';
+    var theme;
     try {
       if (localStorage.getItem('theme') === 'dark') theme = 'dark';
     } catch (err) {}
@@ -93,10 +93,10 @@
       <a href="#contact"><svg class="icon"><use href="#icon-mail"/></svg><span>Contact</span></a>
     </nav>
     <!-- theme button -->
-    <!-- <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
       <svg class="icon icon-sun"><use href="#icon-sun"/></svg>
       <svg class="icon icon-moon"><use href="#icon-moon"/></svg>
-    </button> -->
+    </button>
   </div>
 </header>
 
@@ -319,7 +319,6 @@
 <footer class="site-footer">
   <div class="wrap">
     <p>© <span id="year"></span> Shamin Yasser</p>
-    <!-- <p>Built with HTML, CSS &amp; JavaScript</p> -->
   </div>
 </footer>
 

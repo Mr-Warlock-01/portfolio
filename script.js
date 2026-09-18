@@ -40,23 +40,65 @@
     }
   })();
 
-  // Draw-in animation for the hero rating line
-  (function () {
-    var path = document.getElementById('ratingPath');
-    if (!path) return;
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) return;
+  // // Draw-in animation for the hero rating line
+  // (function () {
+  //   var path = document.getElementById('ratingPath');
+  //   if (!path) return;
+  //   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  //   if (reduceMotion) return;
+  //   try {
+  //     var length = path.getTotalLength();
+  //     path.style.strokeDasharray = length;
+  //     path.style.strokeDashoffset = length;
+  //     path.getBoundingClientRect(); // force reflow
+  //     path.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.25,.1,.25,1)';
+  //     requestAnimationFrame(function () {
+  //       path.style.strokeDashoffset = '0';
+  //     });
+  //   } catch (err) { /* no-op */ }
+  // })();
+  
+  // Draw-in animation for the hero rating line — loops until the page is closed
+(function () {
+  var path = document.getElementById('ratingPath');
+  if (!path) return;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+
+  var DRAW_MS = 1400;  // draw-in duration, same as before
+  var PAUSE_MS = 700;  // how long it holds fully-drawn before resetting
+  var length;
+
+  function cycle() {
     try {
-      var length = path.getTotalLength();
-      path.style.strokeDasharray = length;
+      // Snap back to "undrawn" instantly, no transition
+      path.style.transition = 'none';
       path.style.strokeDashoffset = length;
       path.getBoundingClientRect(); // force reflow
-      path.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.25,.1,.25,1)';
+
+      // Draw it in
+      path.style.transition = 'stroke-dashoffset ' + DRAW_MS + 'ms cubic-bezier(.25,.1,.25,1)';
       requestAnimationFrame(function () {
         path.style.strokeDashoffset = '0';
       });
-    } catch (err) { /* no-op */ }
-  })();
+    } catch (err) {
+      return; // stop the loop if something goes wrong
+    }
+
+    setTimeout(function () {
+      if (path.isConnected) cycle(); // stop if the element ever leaves the page
+    }, DRAW_MS + PAUSE_MS);
+  }
+
+  try {
+    length = path.getTotalLength();
+    path.style.strokeDasharray = length;
+  } catch (err) {
+    return;
+  }
+
+  cycle();
+})();
 
   // Dark / light theme toggle
   (function () {
